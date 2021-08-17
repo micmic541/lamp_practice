@@ -52,7 +52,7 @@ function get_login_user($db){
 }
 
 function regist_user($db, $name, $password, $password_confirmation) {
-  if( is_valid_user($name, $password, $password_confirmation) === false){
+  if(is_valid_user($name, $password, $password_confirmation) === false){
     return false;
   }
   
@@ -104,9 +104,9 @@ function insert_user($db, $name, $password){
   $sql = "
     INSERT INTO
       users(name, password)
-    VALUES ('{$name}', '{$password}');
+    VALUES ( ?, ? );
   ";
 
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, [$name, $password]);
 }
 
