@@ -73,7 +73,7 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
     VALUES({$item_id}, {$user_id}, {$amount})
   ";
 
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, [$user_id, $item_id]);
 }
 
 function update_cart_amount($db, $cart_id, $amount){
@@ -86,7 +86,8 @@ function update_cart_amount($db, $cart_id, $amount){
       cart_id = {$cart_id}
     LIMIT 1
   ";
-  return execute_query($db, $sql);
+
+  return execute_query($db, $sql, [$cart_id]);
 }
 
 function delete_cart($db, $cart_id){
@@ -97,8 +98,8 @@ function delete_cart($db, $cart_id){
       cart_id = {$cart_id}
     LIMIT 1
   ";
-
-  return execute_query($db, $sql);
+  
+  return execute_query($db, $sql, [$cart_id]);
 }
 
 function purchase_carts($db, $carts){
@@ -126,7 +127,7 @@ function delete_user_carts($db, $user_id){
       user_id = {$user_id}
   ";
 
-  execute_query($db, $sql);
+  execute_query($db, $sql, [$user_id]);
 }
 
 
