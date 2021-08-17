@@ -83,7 +83,7 @@ function update_cart_amount($db, $cart_id, $amount){
     SET
       amount = {$amount}
     WHERE
-      cart_id = {$cart_id}
+      cart_id = ?
     LIMIT 1
   ";
 
@@ -95,7 +95,7 @@ function delete_cart($db, $cart_id){
     DELETE FROM
       carts
     WHERE
-      cart_id = {$cart_id}
+      cart_id = ?
     LIMIT 1
   ";
   
@@ -124,7 +124,7 @@ function delete_user_carts($db, $user_id){
     DELETE FROM
       carts
     WHERE
-      user_id = {$user_id}
+      user_id = ?
   ";
 
   execute_query($db, $sql, [$user_id]);

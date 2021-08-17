@@ -19,7 +19,7 @@ function get_item($db, $item_id){
       item_id = {$item_id}
   ";
 
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, [$item_id]);
 }
 
 function get_items($db, $is_open = false){
