@@ -12,6 +12,8 @@ if(is_logined() === true){
 $name = get_post('name');
 $password = get_post('password');
 $password_confirmation = get_post('password_confirmation');
+// トークンの確認
+$valid_token = is_valid_csrf_token('csrf_token');
 
 $db = get_db_connect();
 

@@ -5,6 +5,9 @@ require_once MODEL_PATH . 'user.php';
 
 session_start();
 
+// トークンの確認
+$valid_token = is_valid_csrf_token('csrf_token');
+
 if(is_logined() === true){
   redirect_to(HOME_URL);
 }
