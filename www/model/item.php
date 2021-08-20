@@ -99,7 +99,7 @@ function update_item_status($db, $item_id, $status){
     LIMIT 1
   ";
   
-  return execute_query($db, $sql, [$item_id, $status]);
+  return execute_query($db, $sql, [$status, $item_id]);
 }
 
 function update_item_stock($db, $item_id, $stock){
@@ -113,7 +113,7 @@ function update_item_stock($db, $item_id, $stock){
     LIMIT 1
   ";
   
-  return execute_query($db, $sql, [$item_id, $stock]);
+  return execute_query($db, $sql, [$stock, $item_id]);
 }
 
 function destroy_item($db, $item_id){
