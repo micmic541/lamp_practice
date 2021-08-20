@@ -70,10 +70,10 @@ function insert_cart($db, $user_id, $item_id, $amount = 1){
         user_id,
         amount
       )
-    VALUES( ?, ?, {$amount})
+    VALUES( ?, ?, ?)
   ";
 
-  return execute_query($db, $sql, [$item_id, $user_id]);
+  return execute_query($db, $sql, [$item_id, $user_id, $amount]);
 }
 
 function update_cart_amount($db, $cart_id, $amount){
@@ -81,13 +81,13 @@ function update_cart_amount($db, $cart_id, $amount){
     UPDATE
       carts
     SET
-      amount = {$amount}
+      amount = ?
     WHERE
       cart_id = ?
     LIMIT 1
   ";
 
-  return execute_query($db, $sql, [$cart_id]);
+  return execute_query($db, $sql, [$cart_id, $amount]);
 }
 
 function delete_cart($db, $cart_id){
