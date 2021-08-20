@@ -93,7 +93,7 @@ function update_item_status($db, $item_id, $status){
     UPDATE
       items
     SET
-      status = ?
+      status = ? 
     WHERE
       item_id = ?
     LIMIT 1
