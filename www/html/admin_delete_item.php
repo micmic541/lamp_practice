@@ -6,9 +6,6 @@ require_once MODEL_PATH . 'item.php';
 
 session_start();
 
-// トークンの確認
-$valid_token = is_valid_csrf_token('csrf_token');
-
 if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }
@@ -19,6 +16,16 @@ $user = get_login_user($db);
 
 if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
+}
+
+// get_postユーザー関数：postのデータを得る
+$csrf_token = get_post('crsf_token');
+// トークンのマッチを確認：できなければエラーMSG
+if (is_valid_csrf_token($csrf_token) !== TRUE){
+  // エラーMSG
+  set_error('不正な操作が行われました');
+  // リダイレクト
+  redirect_to(ADMIN_URL);
 }
 
 $item_id = get_post('item_id');
