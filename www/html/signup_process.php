@@ -12,8 +12,6 @@ if(is_logined() === true){
 $name = get_post('name');
 $password = get_post('password');
 $password_confirmation = get_post('password_confirmation');
-// トークンの確認
-$valid_token = is_valid_csrf_token('csrf_token');
 
 $db = get_db_connect();
 
@@ -26,6 +24,16 @@ try{
 }catch(PDOException $e){
   set_error('ユーザー登録に失敗しました。');
   redirect_to(SIGNUP_URL);
+}
+
+// get_postユーザー関数：postのデータを得る
+$csrf_token = get_post('crsf_token');
+// トークンのマッチを確認：できなければエラーMSG
+if (is_valid_csrf_token($csrf_token) !== TRUE){
+  // エラーMSG
+  set_error('不正な操作が行われました');
+  // リダイレクト
+  redirect_to(ADMIN_URL);
 }
 
 set_message('ユーザー登録が完了しました。');

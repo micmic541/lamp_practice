@@ -14,7 +14,7 @@
 
     <form method="post" action="login_process.php" class="login_form mx-auto">
       <!-- トークンの生成 -->
-      <input type="hidden" name="csrf_token" value="<?php print get_csrf_token($token); ?>">
+      <input type="hidden" name="csrf_token" value="<?php print $token; ?>">
       <div class="form-group">
         <label for="name">名前: </label>
         <input type="text" name="name" id="name" class="form-control">
