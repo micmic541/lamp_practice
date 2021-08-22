@@ -58,7 +58,7 @@ function get_login_user($db){
 // ユーザー登録の関数
 function regist_user($db, $name, $password, $password_confirmation) {
   // データが適切か確認
-  if( is_valid_user($name, $password, $password_confirmation) === false){
+  if(is_valid_user($name, $password, $password_confirmation) === false){
     return false;
   }
   
