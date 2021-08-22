@@ -40,6 +40,7 @@ function get_session($name){
 }
 
 function set_session($name, $value){
+  //変数をセッションに登録
   $_SESSION[$name] = $value;
 }
 

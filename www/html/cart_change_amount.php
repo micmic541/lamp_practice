@@ -20,8 +20,8 @@ $csrf_token = get_post('crsf_token');
 if (is_valid_csrf_token($csrf_token) !== TRUE){
   // エラーMSG
   set_error('不正な操作が行われました');
-  // リダイレクト
-  redirect_to(ADMIN_URL);
+  // cart.phpへリダイレクト
+  redirect_to(CART_URL);
 }
 
 $cart_id = get_post('cart_id');
