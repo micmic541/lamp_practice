@@ -17,6 +17,7 @@ function get_get($name){
   return '';
 }
 
+// POSTで送信されたデータを取得
 function get_post($name){
   if(isset($_POST[$name]) === true){
     return $_POST[$name];
@@ -39,6 +40,7 @@ function get_session($name){
 }
 
 function set_session($name, $value){
+  //変数をセッションに登録
   $_SESSION[$name] = $value;
 }
 
@@ -102,8 +104,6 @@ function delete_image($filename){
   
 }
 
-
-
 function is_valid_length($string, $minimum_length, $maximum_length = PHP_INT_MAX){
   $length = mb_strlen($string);
   return ($minimum_length <= $length) && ($length <= $maximum_length);
@@ -137,4 +137,22 @@ function is_valid_upload_image($image){
 
 function h ($str){
   return htmlspecialchars($str, ENT_QUOTES);
+}
+
+// トークンの生成
+function get_csrf_token(){
+  // get_random_string()はユーザー定義関数
+  $token = get_random_string(30);
+  // set_session()はユーザー定義関数
+  set_session('csrf_token', $token);
+  return $token;
+}
+
+// トークンの確認
+function is_valid_csrf_token($token){
+  if($token === ''){
+    return false;
+  }
+  // get_session()はユーザー定義関数
+  return $token === get_session('csrf_token');
 }

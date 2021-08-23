@@ -36,9 +36,13 @@ function get_user_by_name($db, $name){
   return fetch_query($db, $sql, [$name]);
 }
 
+// ログイン処理の関数
 function login_as($db, $name, $password){
+  // ↑の関数で（セレクト文）ユーザー情報取得
   $user = get_user_by_name($db, $name);
+  // 取得したユーザー情報が正しいか確認
   if($user === false || $user['password'] !== $password){
+    // 正しくない（整合しない）場合
     return false;
   }
   set_session('user_id', $user['user_id']);
@@ -51,12 +55,14 @@ function get_login_user($db){
   return get_user($db, $login_user_id);
 }
 
+// ユーザー登録の関数
 function regist_user($db, $name, $password, $password_confirmation) {
   // データが適切か確認
   if(is_valid_user($name, $password, $password_confirmation) === false){
     return false;
   }
   
+  // 適切な場合SQL文で挿入
   return insert_user($db, $name, $password);
 }
 
