@@ -135,6 +135,7 @@ function is_valid_upload_image($image){
   return true;
 }
 
+// エスケープ関数
 function h ($str){
   return htmlspecialchars($str, ENT_QUOTES);
 }
