@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: mysql
--- 生成日時: 2021 年 8 月 23 日 11:19
+-- 生成日時: 2021 年 8 月 24 日 09:29
 -- サーバのバージョン： 5.7.35
 -- PHP のバージョン: 7.4.20
 
@@ -30,7 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `details` (
   `order_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `name` varchar(10) NOT NULL,
   `price` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `created` datetime NOT NULL
@@ -51,6 +50,12 @@ CREATE TABLE `histories` (
 --
 -- ダンプしたテーブルのインデックス
 --
+
+--
+-- テーブルのインデックス `details`
+--
+ALTER TABLE `details`
+  ADD PRIMARY KEY (`order_id`,`item_id`);
 
 --
 -- テーブルのインデックス `histories`
