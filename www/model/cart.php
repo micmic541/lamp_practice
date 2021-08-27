@@ -128,6 +128,7 @@ function purchase_carts($db, $carts){
   }
   // 購入後、カートの中身を消去＆在庫変動＆購入履歴・明細データを挿入
   $db->beginTransaction();
+
   try{
     // 購入履歴にインサート【historiesテーブル】
     insert_history($db, $carts[0]['user_id']);
@@ -153,12 +154,14 @@ function purchase_carts($db, $carts){
       delete_user_carts($db, $carts[0]['user_id']);
       // コミット処理
       $db->commit();
+
     }catch(PDOException $e){
       // ロールバック処理
       $db->rollback();
-      // エラーをスロー
-      throw $e;
+      // エラーMSG
+      set_error('更新に失敗しました。');
     }
+
 }
 
 // 購入履歴へインサート
@@ -167,9 +170,10 @@ function insert_history($db, $user_id){
   $sql = "
     INSERT INTO
       histories(
-        user_id
+        user_id,
+        created
       )
-    VALUES(?)
+    VALUES(?, NOW())
   ";
   // 返り値：SQL文実行の関数
   return execute_query($db, $sql, array($user_id));
@@ -184,9 +188,10 @@ function insert_details($db, $order_id, $item_id, $price, $amount){
         order_id,
         item_id,
         price,
-        amount
+        amount,
+        created
       )
-    VALUES(?,?,?,?)
+    VALUES(?,?,?,?, NOW())
   ";
   // 返り値：SQL文実行の関数
   return execute_query($db, $sql, array($order_id, $item_id, $price, $amount));
