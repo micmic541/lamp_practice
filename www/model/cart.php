@@ -129,7 +129,8 @@ function purchase_carts($db, $carts){
   // 購入後、カートの中身を消去＆在庫変動＆購入履歴・明細データを挿入
   $db->beginTransaction();
 
-  try{
+  // 今までにエラーがあったか確認
+  if(has_error() !== true){
     // 購入履歴にインサート【historiesテーブル】
     insert_history($db, $carts[0]['user_id']);
     // order_id(購入詳細のため)を取得
@@ -142,26 +143,24 @@ function purchase_carts($db, $carts){
       // item.php 160行目:ストック情報更新
       // ※ストック＜購入量になった時にエラーMSG
       if(update_item_stock(
-        $db, 
-        $cart['item_id'], 
-        $cart['stock'] - $cart['amount']
+          $db, 
+          $cart['item_id'], 
+          $cart['stock'] - $cart['amount']
         ) === false){
           // エラーMSG
           set_error($cart['name'] . 'の購入に失敗しました。');
         }
       }
-      // 購入と同時に、ユーザーのカート内を消去
-      delete_user_carts($db, $carts[0]['user_id']);
-      // コミット処理
-      $db->commit();
-
-    }catch(PDOException $e){
-      // ロールバック処理
-      $db->rollback();
-      // エラーMSG
-      set_error('更新に失敗しました。');
-    }
-
+    // 購入と同時に、ユーザーのカート内を消去
+    delete_user_carts($db, $carts[0]['user_id']);
+    // コミット処理
+    $db->commit();
+  } else {
+    // ロールバック処理
+    $db->rollback();
+    // 返り値：false
+    return false; 
+  } 
 }
 
 // 購入履歴へインサート

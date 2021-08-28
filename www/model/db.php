@@ -64,8 +64,8 @@ function execute_query($db, $sql, $params = array()){
     // 返り値：SQL文を実行する
     return $statement->execute($params);
   }catch(PDOException $e){
-    // エラーを投げる
-    throw $e;
+    // エラーMSG
+    set_error('更新に失敗しました。');
   }
   // 不可の場合falseを返す
   return false;
