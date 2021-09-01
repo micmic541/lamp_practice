@@ -22,7 +22,7 @@ $password_confirmation = get_post('password_confirmation');
 $db = get_db_connect();
 
 // get_postユーザー関数：postのデータを得る
-$csrf_token = get_post('crsf_token');
+$csrf_token = get_post('csrf_token');
 // トークンのマッチを確認：できなければエラーMSG
 if (is_valid_csrf_token($csrf_token) !== TRUE){
   // エラーMSG

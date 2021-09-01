@@ -11,6 +11,7 @@ session_start();
 
 // ログイン確認
 if(is_logined() === false){
+  // ログイン失敗の場合ログインページへリダイレクト
   redirect_to(LOGIN_URL);
 }
 
@@ -22,8 +23,9 @@ $user = get_login_user($db);
 // トークン発行
 $token = get_csrf_token();
 
+// ユーザーのカートを取得
 $carts = get_user_carts($db, $user['user_id']);
-
+// 合計金額を算出する
 $total_price = sum_carts($carts);
 
 include_once VIEW_PATH . 'cart_view.php';

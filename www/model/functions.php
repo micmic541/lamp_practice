@@ -57,6 +57,7 @@ function get_errors(){
   return $errors;
 }
 
+// エラーMSG有無判定の関数
 function has_error(){
   return isset($_SESSION['__errors']) && count($_SESSION['__errors']) !== 0;
 }
