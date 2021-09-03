@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <?php include_once VIEW_PATH . 'templates/head.php'; ?>
-    <title>購入履歴</title>
+    <title>購入明細</title>
 </head>
 <body>
     <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
-    <h1>購入履歴</h1>
+    <h1>購入明細</h1>
 
     <div>
         <!-- エラーMSG -->
         <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
-        <!-- 購入履歴 -->
-        <?php if(!empty($histories)){ ?>
+        <!-- 購入明細 -->
         <table>
             <thead>
                 <tr>
@@ -41,10 +40,27 @@
             <?php } ?>
             </tbody>
         </table>
-        <?php }else{ ?>
-        <p>購入履歴がありません</p>
-        <?php } ?>
+
+        <!-- 購入明細 -->
+        <table>
+            <thead>
+                <tr>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>購入数</th>
+                    <th>小計</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach($details as $detail){ ?>
+                <td><?php print($detail['name']); ?></td>
+                <td><?php print($detail['price']); ?></td>
+                <td><?php print($detail['amount']); ?></td>
+                <td><?php print($detail['subtotal']); ?></td>
+            </tbody>
+            <?php } ?>
+        </table>
     </div>
-    
+
 </body>
 </html>
