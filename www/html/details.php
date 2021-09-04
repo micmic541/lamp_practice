@@ -1,5 +1,6 @@
 <?php
 // 他のmodelファイル読み込み
+require_once '../conf/const.php';
 require_once MODEL_PATH. 'functions.php';
 require_once MODEL_PATH . 'user.php';
 require_once MODEL_PATH . 'item.php';
@@ -20,6 +21,9 @@ $db = get_db_connect();
 $user = get_login_user($db);
 // 購入履歴取得
 $histories = get_histories($db, $user['user_id']);
+
+// トークン発行
+$token = get_csrf_token();
 
 // order_id取得
 $order_id = get_post('order_id');

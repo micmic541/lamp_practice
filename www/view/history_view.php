@@ -3,12 +3,14 @@
 <head>
     <?php include_once VIEW_PATH . 'templates/head.php'; ?>
     <title>購入履歴</title>
+    <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'histories.css'); ?>">
 </head>
 <body>
     <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
+    
+    <div class="container">
     <h1>購入履歴</h1>
 
-    <div>
         <!-- エラーMSG -->
         <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
@@ -30,7 +32,7 @@
                     <td><?php print($history['created']); ?></td>
                     <td><?php print($history['total']); ?></td>
                     <td>
-                        <form action="details.php" method="post">
+                        <form method="post" action="details.php">
                             <!-- トークンの生成 -->
                             <input type="hidden" name="csrf_token" value="<?php print $token; ?>">
                             <input type="submit" value="購入明細表示">

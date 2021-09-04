@@ -14,6 +14,7 @@ define('DB_USER', 'testuser');
 define('DB_PASS', 'password');
 define('DB_CHARSET', 'utf8');
 
+// リダイレクトで飛ばす時などに使用
 define('SIGNUP_URL', '/signup.php');
 define('LOGIN_URL', '/login.php');
 define('LOGOUT_URL', '/logout.php');
@@ -22,7 +23,6 @@ define('CART_URL', '/cart.php');
 define('FINISH_URL', '/finish.php');
 define('ADMIN_URL', '/admin.php');
 define('HISTORY_URL', '/histories.php');
-define('DETAIL_URL', '/details.php');
 
 
 define('REGEXP_ALPHANUMERIC', '/\A[0-9a-zA-Z]+\z/');
