@@ -19,8 +19,14 @@ if(is_logined() === false){
 $db = get_db_connect();
 // ユーザー情報取得
 $user = get_login_user($db);
-// ユーザー毎の購入履歴取得
-$histories = get_histories($db, $user['user_id']);
+// 管理者か確認
+if(is_admin($user) === TRUE){
+    // 管理者であれば全ての情報取得
+    $histories = get_all_histories($db);
+} else {
+    // ユーザー毎の購入履歴取得
+    $histories = get_histories($db, $user['user_id']);
+}
 
 // トークン発行
 $token = get_csrf_token();
