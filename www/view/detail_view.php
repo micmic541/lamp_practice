@@ -3,7 +3,7 @@
 <head>
     <?php include_once VIEW_PATH . 'templates/head.php'; ?>
     <title>購入明細</title>
-    <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'histories.css'); ?>">
+    <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'bella.css'); ?>">
 </head>
 <body>
     <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
@@ -14,27 +14,26 @@
         <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
         <!-- 購入明細 -->
-        <table>
+        <table class="detailTable">
             <thead>
                 <tr>
                     <th>注文番号</th>
                     <th>購入日時</th>
                     <th>合計金額</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr class="text-center">
                     <td><?php print($order_id); ?></td>
                     <td><?php print($history['created']); ?></td>
-                    <td><?php print($history['total']); ?></td>
+                    <td class="text-danger"><?php print($history['total']); ?></td>
                 </tr>
             </tbody>
         </table>
 
         <!-- 購入明細 -->
-        <table>
-            <thead>
+        <table class="table table-bordered text-center">
+            <thead class="thead-dark">
                 <tr>
                     <th>商品名</th>
                     <th>価格</th>

@@ -1,0 +1,10 @@
+table { margin: 3rem; }
+
+button, input { 
+    -webkit-appearance: media-slider !important;
+    cursor: pointer;
+}
+
+.detailBtn { background-color: #efefef;}
+
+.detailTable th { padding: .75rem;}
