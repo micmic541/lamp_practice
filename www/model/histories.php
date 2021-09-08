@@ -61,7 +61,7 @@ function get_one_history($db, $order_id, $user_id){
         ON
             histories.order_id = details.order_id
         WHERE
-            order_id = ?
+            histories.order_id = ?
         AND
             histories.user_id = ?
     ";

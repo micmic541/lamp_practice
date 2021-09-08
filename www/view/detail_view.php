@@ -14,7 +14,7 @@
         <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
         <!-- 購入明細 -->
-        <table class="detailTable">
+        <table class="mx-auto detailTable">
             <thead>
                 <tr>
                     <th>注文番号</th>
@@ -32,7 +32,7 @@
         </table>
 
         <!-- 購入明細 -->
-        <table class="table table-bordered text-center">
+        <table class="mx-auto my-0 table table-bordered text-center">
             <thead class="thead-dark">
                 <tr>
                     <th>商品名</th>
