@@ -64,8 +64,31 @@ function get_one_history($db, $order_id, $user_id){
             histories.order_id = ?
         AND
             histories.user_id = ?
+        GROUP BY
+            histories.order_id
     ";
     return fetch_query($db, $sql, [$order_id, $user_id]);
+}
+
+// 管理者のための１行情報取得
+function get_one_admin_history($db, $order_id){
+    $sql = "
+        SELECT
+            histories.user_id,
+            histories.created,
+            SUM(details.price * details.amount) AS total
+        FROM
+            histories
+        JOIN
+            details
+        ON
+            histories.order_id = details.order_id
+        WHERE
+            histories.order_id = ?
+        GROUP BY
+            histories.order_id
+    ";
+    return fetch_query($db, $sql, [$order_id]);
 }
 
 function get_details($db, $order_id){

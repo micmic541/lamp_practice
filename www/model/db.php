@@ -34,6 +34,7 @@ function fetch_query($db, $sql, $params = array()){
   }catch(PDOException $e){
     // エラーMSG
     set_error('データ取得に失敗しました。');
+    var_dump($e);
   }
   // データ取得不可の場合falseを返す
   return false;
