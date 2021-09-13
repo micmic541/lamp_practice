@@ -91,7 +91,8 @@ function get_one_admin_history($db, $order_id){
     return fetch_query($db, $sql, [$order_id]);
 }
 
-function get_details($db, $order_id){
+// 管理者が購入明細を得る関数
+function get_admin_details($db, $order_id){
     $sql = "
         SELECT
             details.price,
@@ -111,4 +112,33 @@ function get_details($db, $order_id){
             details.price, details.amount, details.created, items.name
     ";
     return fetch_all_query($db, $sql, array($order_id));
+}
+
+// ユーザーが購入明細を得る関数
+function get_details($db, $order_id, $user_id){
+    $sql = "
+        SELECT
+            details.price,
+            details.amount,
+            details.created,
+            SUM(details.price * details.amount) AS subtotal,
+            items.name
+        FROM
+            details
+        INNER JOIN
+            items
+        ON
+            details.item_id = items.item_id
+        INNER JOIN
+            histories
+        ON 
+            details.order_id = histories.order_id
+        WHERE
+            details.order_id = ?
+        AND
+            histories.user_id = ?
+        GROUP BY
+            details.price, details.amount, details.created, items.name
+    ";
+    return fetch_all_query($db, $sql, [$order_id, $user_id]);
 }
