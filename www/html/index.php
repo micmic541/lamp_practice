@@ -17,10 +17,11 @@ if(is_logined() === false){
 $db = get_db_connect();
 // ユーザー情報取得
 $user = get_login_user($db);
+// 商品情報取得
+$items = get_open_items($db);
 
 // トークン発行
 $token = get_csrf_token();
 
-$items = get_open_items($db);
-
+// viewファイル読み込み
 include_once VIEW_PATH . 'index_view.php';
