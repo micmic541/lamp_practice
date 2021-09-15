@@ -98,7 +98,7 @@ function get_admin_details($db, $order_id){
             details.price,
             details.amount,
             details.created,
-            SUM(details.price * details.amount) AS subtotal,
+            details.price * details.amount AS subtotal,
             items.name
         FROM
             details
@@ -108,8 +108,6 @@ function get_admin_details($db, $order_id){
             details.item_id = items.item_id
         WHERE
             order_id = ?
-        GROUP BY
-            details.price, details.amount, details.created, items.name
     ";
     return fetch_all_query($db, $sql, array($order_id));
 }
@@ -121,7 +119,7 @@ function get_details($db, $order_id, $user_id){
             details.price,
             details.amount,
             details.created,
-            SUM(details.price * details.amount) AS subtotal,
+            details.price * details.amount AS subtotal,
             items.name
         FROM
             details
@@ -137,8 +135,6 @@ function get_details($db, $order_id, $user_id){
             details.order_id = ?
         AND
             histories.user_id = ?
-        GROUP BY
-            details.price, details.amount, details.created, items.name
     ";
     return fetch_all_query($db, $sql, [$order_id, $user_id]);
 }
