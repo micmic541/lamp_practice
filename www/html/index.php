@@ -19,6 +19,10 @@ $db = get_db_connect();
 $user = get_login_user($db);
 // 商品情報取得
 $items = get_open_items($db);
+//上位3位アイテム情報取得
+$rankings = get_ranking($db);
+
+var_dump($rankings);
 
 // トークン発行
 $token = get_csrf_token();

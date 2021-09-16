@@ -207,3 +207,36 @@ function is_valid_item_status($status){
   }
   return $is_valid;
 }
+
+function get_ranking($db, $is_open = false){
+  $sql = "
+      SELECT
+        items.item_id, 
+        items.name,
+        items.stock,
+        items.price,
+        items.image,
+        items.status,
+        SUM(details.amount) as purchase_amount
+      FROM
+        items
+      JOIN
+        details
+      ON
+        items.item_id = details.item_id
+      GROUP BY
+        details.item_id
+      ORDER BY
+        purchase_amount  DESC
+      LIMIT 
+        3
+  ";
+
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+
+  return fetch_all_query($db, $sql);
+}
