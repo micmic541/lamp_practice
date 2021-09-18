@@ -22,6 +22,8 @@ $items = get_open_items($db);
 //上位3位アイテム情報取得
 $rankings = get_ranking($db);
 
+// var_dump($rankings);
+
 // トークン発行
 $token = get_csrf_token();
 

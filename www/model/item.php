@@ -43,6 +43,29 @@ function get_items($db, $is_open = false){
   return fetch_all_query($db, $sql);
 }
 
+function get_three($db, $is_open = false){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+    LIMIT
+      3
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+
+  return fetch_all_query($db, $sql);
+}
+
 function get_all_items($db){
   return get_items($db);
 }
@@ -209,34 +232,40 @@ function is_valid_item_status($status){
 }
 
 function get_ranking($db, $is_open = false){
+
+  /* ※if文付きのwhere句をgroupより上に設置する方法が
+  これ以外に見当たらないため中止。コメントアウト*/
+  
+  // if($is_open === true){
+  //   $sql .= '
+  //     WHERE status = 1
+  //   ';
+  // } 
+
   $sql = "
-      SELECT
-        items.item_id, 
-        items.name,
-        items.stock,
-        items.price,
-        items.image,
-        items.status,
-        SUM(details.amount) as purchase_amount
-      FROM
-        items
-      JOIN
-        details
-      ON
-        items.item_id = details.item_id
-      GROUP BY
-        details.item_id
-      ORDER BY
-        purchase_amount  DESC
-      LIMIT 
-        3
+  SELECT
+    items.item_id, 
+    items.name,
+    items.stock,
+    items.price,
+    items.image,
+    items.status,
+    SUM(details.amount) as purchase_amount
+  FROM
+    items
+  JOIN
+    details
+  ON
+    items.item_id = details.item_id
+  WHERE
+   status = 1
+  GROUP BY
+    details.item_id
+  ORDER BY
+    purchase_amount  DESC
+  LIMIT 
+    3
   ";
-
-  if($is_open === true){
-    $sql .= '
-      WHERE status = 1
-    ';
-  }
-
+  
   return fetch_all_query($db, $sql);
 }

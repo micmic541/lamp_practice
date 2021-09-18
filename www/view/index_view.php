@@ -71,6 +71,8 @@
                       <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
                       <input type="hidden" name="item_id" value="<?php print( h($ranking['item_id'])); ?>">
                     </form>
+                  <!-- 3位以上は表示させない -->
+                  <?php if ($rank >= 3){ break; } ?>
                   <?php } else { ?>
                     <p class="text-danger">現在売り切れです。</p>
                   <?php } ?>
