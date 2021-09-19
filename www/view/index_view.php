@@ -18,12 +18,12 @@
       <div class="row">
       <?php foreach($items as $item){ ?>
         <div class="col-6 item">
-          <div class="card h-100 text-center">
+          <div class="card mh-auto text-center">
             <div class="card-header">
               <?php print( h($item['name'])); ?>
             </div>
             <figure class="card-body">
-              <img class="card-img" src="<?php print(IMAGE_PATH . $item['image']); ?>">
+              <img class="w-50 rounded" src="<?php print(IMAGE_PATH . $item['image']); ?>">
               <figcaption>
                 <?php print(number_format( h($item['price']))); ?>円
                 <?php if($item['stock'] > 0){ ?>
@@ -43,6 +43,48 @@
       <?php } ?>
       </div>
     </div>
+
+    <!-- ランキング -->
+    <div class="rank-deck py-5 mt-5">
+        <h1>人気ランキング</h1>
+
+        <div class="column">
+        <!-- 順位初期化 -->
+        <?php $rank = 0; ?>
+        <?php foreach($rankings as $ranking){ ?>
+          <div class="col-10 item mx-auto">
+            <div class="card mh-auto text-center">
+              <div class="card-header">
+                <!-- 順位 -->
+                <p class="font-weight-bold text-danger"><?php print(++$rank);?>位</p>
+                <!-- 商品名 -->
+                <?php print( h($ranking['name'])); ?>
+              </div>
+              <figure class="card-body d-flex flex-row justify-content-around">
+                <img class="w-50 h-30 rounded" src="<?php print(IMAGE_PATH . $ranking['image']); ?>">
+                <figcaption class="align-self-center">
+                  <?php print(number_format( h($ranking['price']))); ?>円
+                  <?php if($ranking['stock'] > 0){ ?>
+                    <form action="index_add_cart.php" method="post">
+                      <!-- トークンの生成 -->
+                      <input type="hidden" name="csrf_token" value="<?php print $token; ?>">
+                      <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
+                      <input type="hidden" name="item_id" value="<?php print( h($ranking['item_id'])); ?>">
+                    </form>
+                  <!-- 3位以上は表示させない -->
+                  <?php if ($rank >= 3){ break; } ?>
+                  <?php } else { ?>
+                    <p class="text-danger">現在売り切れです。</p>
+                  <?php } ?>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        <?php } ?>
+      </div>
+
+    </div>
+
   </div>
   
 </body>
